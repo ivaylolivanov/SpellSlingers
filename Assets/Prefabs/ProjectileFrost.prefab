@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 5003852629010263270}
   - component: {fileID: 355933100287625360}
   - component: {fileID: 3737204897751235645}
-  m_Layer: 0
+  - component: {fileID: 7874956720791433303}
+  m_Layer: 9
   m_Name: ProjectileFrost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,4 +117,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa7cc2d325567768aaf7bd0344a089e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 7
+  range: 5
+--- !u!60 &7874956720791433303
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3118837667953308222}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0, y: 0.5}
+      - {x: -0.4330127, y: -0.25000003}
+      - {x: 0.43301272, y: -0.24999994}
