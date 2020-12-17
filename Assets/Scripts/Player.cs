@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour {
-    [Header("Configuration variables")]
+public class Player : MonoBehaviour {
+    [Header("Player States")]
+    [SerializeField] int hitPoints = 100;
     [SerializeField] float speed = 20f;
 
     Rigidbody2D rb;
