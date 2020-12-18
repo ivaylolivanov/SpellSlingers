@@ -8,6 +8,7 @@ public class ProjectileAbility : Ability {
     public GameObject projectile;
 
     public override void Initialize() {
+        projectile.GetComponent<Projectile>().SetDamage(damage);
         projectile.GetComponent<Projectile>().SetRange(aRange);
         aInCooldown = false;
     }
