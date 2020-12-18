@@ -5,6 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private float range = 7f;
+    [SerializeField] private int damage;
 
     private Vector2 origin;
 
@@ -23,6 +24,10 @@ public class Projectile : MonoBehaviour
     }
 
     void OnCollisionEnter2D(Collision2D collision) {
+        Health health = collision.gameObject.GetComponent<Health>();
+        if(health != null) {
+            health.DoDamage(damage);
+        }
         Explode();
     }
 
@@ -30,6 +35,10 @@ public class Projectile : MonoBehaviour
         // Play VFX
         // Play SFX
         Destroy(gameObject);
+    }
+
+    public void SetDamage(int dmg) {
+        this.damage = dmg;
     }
 
     public void SetRange(float range) {
