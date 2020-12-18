@@ -15,7 +15,7 @@ MonoBehaviour:
   aName: Fire Ball
   aRange: 10
   aForce: 20
-  aCooldown: 3
-  damage: 10
+  aCooldown: 1
+  damage: 30
   projectile: {fileID: 3118837667953308222, guid: 4187641e06780c0779f0abc3874cf107,
     type: 3}
