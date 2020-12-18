@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1358512080}
   - component: {fileID: 4265213742615481273}
   - component: {fileID: 7468173178504645849}
+  - component: {fileID: 3113456009487712621}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -145,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dd08be6daa86f45d8c152d5898e83f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 5
 --- !u!114 &7468173178504645849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,6 +162,18 @@ MonoBehaviour:
   ability: {fileID: 11400000, guid: 23b48547c589673c6b6dac63f8a9cd28, type: 2}
   ability2: {fileID: 11400000, guid: a0b125249c22537bab10cec92e0e1f06, type: 2}
   firePoint: {fileID: 526909475520858664}
+--- !u!114 &3113456009487712621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048219342497077381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08850386212a013e28a71502ac2451ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4871668556866170230
 GameObject:
   m_ObjectHideFlags: 0
