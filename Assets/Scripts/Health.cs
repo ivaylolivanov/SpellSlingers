@@ -3,20 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Health : MonoBehaviour {
-    [SerializeField] private int hitPoints = 100;
+    [SerializeField] private int maxHitPoints = 100;
+
+    private int currentHitPoints;
+
+    void Start() {
+        currentHitPoints = maxHitPoints;
+    }
 
     void Update() {
-        if(hitPoints <= 0) {
+        if(currentHitPoints <= 0) {
             Die();
         }
     }
 
     public void DoDamage(int amount) {
-        hitPoints -= amount;
+        currentHitPoints -= amount;
     }
 
     public void Restore(int amount) {
-        hitPoints += amount;
+        currentHitPoints += amount;
+        if (currentHitPoints >= maxHitPoints) {
+            currentHitPoints = maxHitPoints;
+        }
     }
 
     private void Die() {
