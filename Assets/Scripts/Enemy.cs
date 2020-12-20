@@ -90,13 +90,13 @@ public class Enemy : MonoBehaviour {
     }
 
     IEnumerator Attack() {
-        yield return new WaitForSeconds(timeBetweenAttacks);
         foreach(Collider2D target in this.targets2Attack) {
             Health healthComponent = target.gameObject.GetComponent<Health>();
             if(healthComponent) {
                 healthComponent.DoDamage(this.damage);
             }
         }
+        yield return new WaitForSeconds(timeBetweenAttacks);
         this.hasAttacked = false;
     }
 }
