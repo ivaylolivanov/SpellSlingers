@@ -7,18 +7,16 @@ public class SpellCaster : MonoBehaviour {
     [SerializeField] Ability ability2;
     [SerializeField] Transform firePoint;
 
-    bool onGlobalCooldown = false;
-
     void Start() {
         ability.Initialize();
         ability2.Initialize();
     }
 
     void Update() {
-        if(Input.GetMouseButtonDown(0)) {
+        if (Input.GetMouseButtonDown(0)) {
             CastSpell(ability);
         }
-        if(Input.GetMouseButtonDown(1)) {
+        if (Input.GetMouseButtonDown(1)) {
             CastSpell(ability2);
         }
     }

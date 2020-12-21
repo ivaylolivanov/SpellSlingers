@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 public class Health : MonoBehaviour {
     [SerializeField] private int maxHitPoints = 100;
-    [SerializeField] private GameObject healthBar;
+    [SerializeField] private GameObject healthBar = null;
 
     private int currentHitPoints;
     private Slider healthBarSlider;
 
     void Start() {
         currentHitPoints = maxHitPoints;
-        if(healthBar) {
+        if(healthBar != null) {
             healthBarSlider = healthBar.GetComponent<Slider>();
             healthBarSlider.maxValue = maxHitPoints;
             healthBarSlider.value = currentHitPoints;
@@ -27,7 +27,7 @@ public class Health : MonoBehaviour {
 
     public void DoDamage(int amount) {
         currentHitPoints -= amount;
-        if(healthBar) {
+        if(healthBar != null) {
             healthBarSlider.value = currentHitPoints;
         }
     }

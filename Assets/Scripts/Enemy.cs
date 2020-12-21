@@ -25,6 +25,9 @@ public class Enemy : MonoBehaviour {
     private bool hasAttacked = false;
 
     void Start() {
+        if(layerToAttack <= 0) {
+            layerToAttack = LayerMask.GetMask("Player");
+        }
         rb = GetComponent<Rigidbody2D>();
     }
 
