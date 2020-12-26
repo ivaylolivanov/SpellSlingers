@@ -3,103 +3,83 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour {
-    [Header("Main Stats")]
-    [SerializeField] private float speed = 3f;
-
-    [Header("Ranges")]
-    [SerializeField] private float attackRange = 1f;
+    [SerializeField] private float moveSpeed = 4f;
     [SerializeField] private float aggroRange = 5f;
-
-    [Header("Attack stats")]
-    [SerializeField] private int damage = 10;
-    [SerializeField] private float timeBetweenAttacks = .5f;
-
-    [Header("Attack helper objects")]
+    [SerializeField] private LayerMask targetLayer;
     [SerializeField] private Transform attackPoint;
-    [SerializeField] private LayerMask layerToAttack;
+    [SerializeField] private Weapon weapon;
 
     private Rigidbody2D rb;
-    private Vector2 targetPosition;
-    private int presentTargets = 0;
-    private Collider2D[] targets2Attack = null;
-    private bool hasAttacked = false;
 
     void Start() {
-        if(layerToAttack <= 0) {
-            layerToAttack = LayerMask.GetMask("Player");
+        if (targetLayer <= 0) {
+            targetLayer = LayerMask.GetMask("Player");
         }
+        weapon.Initialize(transform);
         rb = GetComponent<Rigidbody2D>();
     }
 
     void Update() {
-        DetectTargets();
-        if(this.presentTargets > 0) {
-            ChaseTarget();
-        }
-        if(this.targets2Attack != null && this.targets2Attack.Length > 0 && ! this.hasAttacked) {
-            this.hasAttacked = true;
-            StartCoroutine(Attack());
-        }
-    }
-
-    void DetectTargets() {
-        Collider2D[] detectedTargets = Physics2D.OverlapCircleAll(
+        Collider2D[] targets = Physics2D.OverlapCircleAll(
             transform.position,
             aggroRange,
-            layerToAttack
+            targetLayer
         );
-        this.presentTargets = detectedTargets.Length;
-
-        if(this.presentTargets > 0) {
-            this.targets2Attack = Physics2D.OverlapCircleAll(
-                attackPoint.position,
-                attackRange,
-                layerToAttack
-            );
+        if (targets.Length > 0) {
+            Transform target = FindClosestTarget(targets);
+            ChaseTarget(target);
+            if(! weapon.IsInCooldown()) {
+                weapon.Hit(attackPoint);
+                StartCoroutine(weapon.Cooldown(this));
+            }
         }
-        this.targetPosition = FindClosestTarget(detectedTargets);
     }
 
-    Vector2 FindClosestTarget(Collider2D[] detectedTargets) {
+    Transform FindClosestTarget(Collider2D[] targets) {
+        Transform result = null;
         float minDistance = float.MaxValue;
-        Vector2 result = Vector2.zero;
 
-        foreach(Collider2D target in detectedTargets) {
+        foreach(Collider2D target in targets) {
             float distance = Vector2.Distance(
                 transform.position,
                 target.transform.position
             );
             if(minDistance > distance) {
                 minDistance = distance;
-                result = target.transform.position;
+                result = target.transform;
             }
         }
 
         return result;
     }
 
-    void ChaseTarget() {
-        Vector2 lookDirection = this.targetPosition - rb.position;
-        float lookAngleRads = Mathf.Atan2(lookDirection.y, lookDirection.x);
-        float lookAngleDeg = Mathf.Rad2Deg * lookAngleRads;
-        float lookDirDegPov = lookAngleDeg - 90f;
+    private void ChaseTarget(Transform target) {
+        float distance = GetDistanceToTarget(target);
+        if (distance > weapon.aRange)
+        {
+            Vector2 lookDirection = (Vector2)target.position - rb.position;
+            float lookAngleRads = Mathf.Atan2(lookDirection.y, lookDirection.x);
+            float lookAngleDeg = Mathf.Rad2Deg * lookAngleRads;
+            float lookDirDegPov = lookAngleDeg - 90f;
 
-        rb.rotation = lookDirDegPov;
-        transform.position = Vector2.MoveTowards(
-            transform.position,
-            this.targetPosition,
-            speed * Time.deltaTime
-        );
+            rb.rotation = lookDirDegPov;
+            transform.position = Vector2.MoveTowards(
+                transform.position,
+                target.position,
+                moveSpeed * Time.deltaTime
+            );
+        }
     }
 
-    IEnumerator Attack() {
-        foreach(Collider2D target in this.targets2Attack) {
-            Health healthComponent = target.gameObject.GetComponent<Health>();
-            if(healthComponent) {
-                healthComponent.DoDamage(this.damage);
-            }
+    private float GetDistanceToTarget(Transform target) {
+        float result = Vector2.Distance(target.position, attackPoint.position);
+
+        Collider2D collider = target.GetComponent<Collider2D>();
+        if(collider) {
+            Vector2 closestPoint = collider.ClosestPoint(attackPoint.position);
+            result = Vector2.Distance(closestPoint, attackPoint.position);
         }
-        yield return new WaitForSeconds(timeBetweenAttacks);
-        this.hasAttacked = false;
+
+        return result;
     }
 }
