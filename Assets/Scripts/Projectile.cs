@@ -5,7 +5,6 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private float range = 7f;
-    [SerializeField] private float knockbackForce = 15f;
     [SerializeField] private int damage;
 
     private Vector2 origin;
@@ -23,22 +22,6 @@ public class Projectile : MonoBehaviour
             Explode();
         }
     }
-
-    // void OnTriggerEnter2D(Collider2D coll) {
-    //     if(coll.tag == "Terrain") {
-    //         return;
-    //     }
-    //     Health health = coll.gameObject.GetComponent<Health>();
-    //     if(health != null) {
-    //         health.DoDamage(damage);
-    //     }
-    //     Rigidbody2D rb = coll.gameObject.GetComponent<Rigidbody2D>();
-    //     if(rb != null) {
-    //         Vector2 direction = transform.position - coll.transform.position;
-    //         rb.AddForce(direction.normalized * -knockbackForce, ForceMode2D.Impulse);
-    //     }
-    //     Explode();
-    // }
 
     void OnCollisionEnter2D(Collision2D coll) {
         Health health = coll.gameObject.GetComponent<Health>();
