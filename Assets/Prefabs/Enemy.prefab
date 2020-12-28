@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 9202714308298732980}
   - component: {fileID: 4756450261252917120}
   - component: {fileID: 1257213598}
-  - component: {fileID: 8122951093726336255}
+  - component: {fileID: 3975126766425455192}
   - component: {fileID: 8218418086957100199}
   - component: {fileID: 3942397112150629023}
   m_Layer: 0
@@ -107,7 +107,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 6e32f199c8fbc05a78a07aeb4ce5a054, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.05074531, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -138,7 +138,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &8122951093726336255
+--- !u!61 &3975126766425455192
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -204,6 +204,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9202714308298732980}
     m_Modifications:
+    - target: {fileID: 3667432165291188928, guid: da0332844b43d08fba13218704b86812,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3667432165291188931, guid: da0332844b43d08fba13218704b86812,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -212,6 +217,16 @@ PrefabInstance:
     - target: {fileID: 3667432165291188931, guid: da0332844b43d08fba13218704b86812,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3667432165795609232, guid: da0332844b43d08fba13218704b86812,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3667432166344175051, guid: da0332844b43d08fba13218704b86812,
+        type: 3}
+      propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3667432166381605859, guid: da0332844b43d08fba13218704b86812,
@@ -323,6 +338,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HealthBarCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3667432166381605863, guid: da0332844b43d08fba13218704b86812,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da0332844b43d08fba13218704b86812, type: 3}
