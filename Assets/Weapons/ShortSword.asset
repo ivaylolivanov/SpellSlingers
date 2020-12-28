@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ShortSword
   m_EditorClassIdentifier: 
   aName: Short Sword
-  aRange: 0.5
+  aRange: 0.75
   aForce: 15
-  aCooldown: 1.5
+  aCooldown: 1.2
   damage: 10
