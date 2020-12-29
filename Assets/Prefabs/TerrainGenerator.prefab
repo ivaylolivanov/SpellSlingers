@@ -47,6 +47,9 @@ MonoBehaviour:
     type: 3}
   groundTile: {fileID: 5932576194141273535, guid: 0273220e6823b96bbaf2d7eca53d0824,
     type: 3}
+  obstacles:
+  - {fileID: 2755439555408585334, guid: 438c15676cacd308982f6b7c6193a6a3, type: 3}
+  - {fileID: 2755439555408585334, guid: 7d3e1819e313c6f8db68bcb83e392627, type: 3}
   width: 50
   height: 50
   groundWidth: 25
