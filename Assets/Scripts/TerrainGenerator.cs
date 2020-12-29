@@ -5,54 +5,83 @@ using UnityEngine;
 public class TerrainGenerator : MonoBehaviour {
     [SerializeField] private GameObject lavaTile;
     [SerializeField] private GameObject groundTile;
+    [SerializeField] private GameObject[] obstacles;
 
-    [SerializeField] private int width;
-    [SerializeField] private int height;
-    [SerializeField] private int groundWidth;
-    [SerializeField] private int groundHeight;
-    [SerializeField] private float randomFactor;
+    [SerializeField] private int width = 50;
+    [SerializeField] private int height = 50;
+    [SerializeField] private int groundWidth = 25;
+    [SerializeField] private int groundHeight = 25;
+    [SerializeField] private float randomFactor = 5f;
     [SerializeField] private float shrinkTime = 60f;
 
     private bool waiting = false;
-    private int currentGroundWidth;
-    private int currentGroundHeight;
-    private Queue<GameObject> toDelete;
+    private Vector2 terrainCenter;
+    private float shrinkRadius;
+    private List<GameObject> groundTiles;
 
     void Start() {
-        currentGroundWidth = groundWidth;
-        currentGroundHeight = groundHeight;
-        toDelete = new Queue<GameObject>();
+        terrainCenter = new Vector2(0, 0);
+        shrinkRadius = Mathf.Min(groundWidth, groundHeight) / 2;
+        groundTiles = new List<GameObject>();
+        GenerateTerrain();
     }
 
     void Update() {
-        if (currentGroundWidth > 0 && currentGroundHeight > 0 && ! waiting) {
+        if (! waiting && shrinkRadius > 0) {
             waiting = true;
-            while(toDelete.Count > 0) {
-                Destroy(toDelete.Dequeue());
-            }
-            StartCoroutine(GenerateTerrain());
+            StartCoroutine(ShrinkGround());
         }
     }
 
-    private IEnumerator GenerateTerrain() {
+    private IEnumerator ShrinkGround() {
+        List<GameObject> tilesToDelete = new List<GameObject>();
+        foreach(GameObject tile in groundTiles) {
+            float distance = Vector2.Distance(
+                terrainCenter,
+                tile.transform.position
+            );
+            if(distance > shrinkRadius) {
+                Vector2 tilePosition = tile.transform.position;
+                tilesToDelete.Add(tile);
+                Destroy(tile);
+                GameObject newTile = Instantiate(
+                    lavaTile,
+                    tilePosition,
+                    Quaternion.identity
+                );
+                newTile.transform.parent = this.transform;
+            }
+        }
+
+        foreach(GameObject tile in tilesToDelete) {
+            groundTiles.Remove(tile);
+        }
+
+        yield return new WaitForSeconds(shrinkTime);
+
+        --shrinkRadius;
+        waiting = false;
+    }
+
+    private void GenerateTerrain() {
         GameObject tileToInstantiate = lavaTile;
         for (int x = (-width / 2); x < (width / 2); ++x) {
             for (int y = (-height / 2); y < (height / 2); ++y) {
                 float groundHeightUpperLimit = Random.Range(
-                    (currentGroundHeight / 2),
-                    (currentGroundHeight / 2 - randomFactor)
+                    (groundHeight / 2),
+                    (groundHeight / 2 - randomFactor)
                 );
                 float groundHeightLowerLimit = Random.Range(
-                    (-currentGroundHeight / 2),
-                    (-currentGroundHeight / 2 + randomFactor)
+                    (-groundHeight / 2),
+                    (-groundHeight / 2 + randomFactor)
                 );
                 float groundWidthLeftLimit = Random.Range(
-                    (-currentGroundWidth / 2),
-                    (-currentGroundWidth / 2 + randomFactor)
+                    (-groundWidth / 2),
+                    (-groundWidth / 2 + randomFactor)
                 );
                 float groundWidthRightLimit = Random.Range(
-                    (currentGroundWidth / 2 - randomFactor),
-                    (currentGroundWidth / 2)
+                    (groundWidth / 2 - randomFactor),
+                    (groundWidth / 2)
                 );
                 bool isTileGround = x >= groundWidthLeftLimit
                     && x <= groundWidthRightLimit
@@ -64,22 +93,26 @@ public class TerrainGenerator : MonoBehaviour {
                     tileToInstantiate = groundTile;
                 }
 
+                Vector2 newTilePosition = new Vector2(x, y);
                 GameObject tile = Instantiate(
                     tileToInstantiate,
-                    new Vector2(x, y),
+                    newTilePosition,
                     Quaternion.identity
                 );
-                tile.transform.parent = this.transform;
-                toDelete.Enqueue(tile);
 
+                if(isTileGround){
+                    int randomValue = (int)Random.Range(0, randomFactor + randomFactor);
+                    if(randomValue < obstacles.Length) {
+                        Instantiate(
+                            obstacles[randomValue],
+                            newTilePosition,
+                            Quaternion.identity
+                        );
+                    }
+                    groundTiles.Add(tile);
+                }
+                tile.transform.parent = this.transform;
             }
         }
-
-        yield return new WaitForSeconds(shrinkTime);
-
-        --currentGroundWidth;
-        --currentGroundHeight;
-
-        waiting = false;
     }
 }
