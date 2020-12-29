@@ -581,36 +581,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5692802176126064997, guid: ccd0e3fd10230528294c7e366a56ad43,
-        type: 3}
-      propertyPath: shrinkTime
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 5692802176126064997, guid: ccd0e3fd10230528294c7e366a56ad43,
-        type: 3}
-      propertyPath: groundWidth
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 5692802176126064997, guid: ccd0e3fd10230528294c7e366a56ad43,
-        type: 3}
-      propertyPath: groundHeight
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 5692802176126064997, guid: ccd0e3fd10230528294c7e366a56ad43,
-        type: 3}
-      propertyPath: width
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 5692802176126064997, guid: ccd0e3fd10230528294c7e366a56ad43,
-        type: 3}
-      propertyPath: height
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 5692802176126064997, guid: ccd0e3fd10230528294c7e366a56ad43,
-        type: 3}
-      propertyPath: randomFactor
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 5692802176126064999, guid: ccd0e3fd10230528294c7e366a56ad43,
         type: 3}
       propertyPath: m_Name
