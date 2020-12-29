@@ -8,50 +8,59 @@ public class TerrainGenerator : MonoBehaviour {
 
     [SerializeField] private int width;
     [SerializeField] private int height;
+    [SerializeField] private int groundWidth;
+    [SerializeField] private int groundHeight;
     [SerializeField] private float randomFactor;
     [SerializeField] private float shrinkTime = 60f;
 
     private bool waiting = false;
-    private int currentWidth;
-    private int currentHeight;
+    private int currentGroundWidth;
+    private int currentGroundHeight;
     private Queue<GameObject> toDelete;
 
     void Start() {
-        currentWidth = width;
-        currentHeight = height;
+        currentGroundWidth = groundWidth;
+        currentGroundHeight = groundHeight;
         toDelete = new Queue<GameObject>();
     }
 
     void Update() {
-        if (currentWidth > 0 && currentHeight > 0 && ! waiting) {
+        if (currentGroundWidth > 0 && currentGroundHeight > 0 && ! waiting) {
             waiting = true;
             while(toDelete.Count > 0) {
                 Destroy(toDelete.Dequeue());
             }
-            StartCoroutine(GenerateTerrain(currentWidth, currentHeight));
-            --currentWidth;
-            --currentHeight;
+            StartCoroutine(GenerateTerrain());
         }
-
     }
 
-    private IEnumerator GenerateTerrain(int w, int h) {
-        GameObject tileToInstantiate = groundTile;
-        for (int x = -w / 2; x < w / 2; ++x) {
-            for (int y = -h / 2; y < h / 2; ++y) {
-                if (
-                    y <= Random.Range((-h / 2) * randomFactor, (-h / 2 + 5) * randomFactor)
-                    || y >= Random.Range((h / 2) * randomFactor, (h / 2 + 5) * randomFactor)
-                ) {
-                    tileToInstantiate = lavaTile;
-                }
-                else if (
-                    x <= Random.Range((-w / 2) * randomFactor, (-w / 2 + 5) * randomFactor)
-                    || x >= Random.Range((w / 2) * randomFactor, (w / 2 + 5) * randomFactor)
-                ) {
-                    tileToInstantiate = lavaTile;
-                }
-                else {
+    private IEnumerator GenerateTerrain() {
+        GameObject tileToInstantiate = lavaTile;
+        for (int x = (-width / 2); x < (width / 2); ++x) {
+            for (int y = (-height / 2); y < (height / 2); ++y) {
+                float groundHeightUpperLimit = Random.Range(
+                    (currentGroundHeight / 2),
+                    (currentGroundHeight / 2 - randomFactor)
+                );
+                float groundHeightLowerLimit = Random.Range(
+                    (-currentGroundHeight / 2),
+                    (-currentGroundHeight / 2 + randomFactor)
+                );
+                float groundWidthLeftLimit = Random.Range(
+                    (-currentGroundWidth / 2),
+                    (-currentGroundWidth / 2 + randomFactor)
+                );
+                float groundWidthRightLimit = Random.Range(
+                    (currentGroundWidth / 2 - randomFactor),
+                    (currentGroundWidth / 2)
+                );
+                bool isTileGround = x >= groundWidthLeftLimit
+                    && x <= groundWidthRightLimit
+                    && y >= groundHeightLowerLimit
+                    && y <= groundHeightUpperLimit;
+
+                tileToInstantiate = lavaTile;
+                if(isTileGround) {
                     tileToInstantiate = groundTile;
                 }
 
@@ -62,10 +71,14 @@ public class TerrainGenerator : MonoBehaviour {
                 );
                 tile.transform.parent = this.transform;
                 toDelete.Enqueue(tile);
+
             }
         }
 
         yield return new WaitForSeconds(shrinkTime);
+
+        --currentGroundWidth;
+        --currentGroundHeight;
 
         waiting = false;
     }
