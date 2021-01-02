@@ -13,6 +13,7 @@ public class TerrainGenerator : MonoBehaviour {
     [SerializeField] private int groundHeight = 25;
     [SerializeField] private float randomFactor = 5f;
     [SerializeField] private float shrinkTime = 60f;
+    [SerializeField] private float obstacleSpawnChance = 0.7f;
 
     private bool waiting = false;
     private Vector2 terrainCenter;
@@ -100,14 +101,15 @@ public class TerrainGenerator : MonoBehaviour {
                     Quaternion.identity
                 );
 
-                if(isTileGround){
-                    int randomValue = (int)Random.Range(0, randomFactor + randomFactor);
-                    if(randomValue < obstacles.Length) {
-                        Instantiate(
-                            obstacles[randomValue],
+                if(isTileGround) {
+                    if(Random.value >= obstacleSpawnChance) {
+                        int obstacleIndex = (int)Random.Range(0, obstacles.Length);
+                        GameObject obstacle = Instantiate(
+                            obstacles[obstacleIndex],
                             newTilePosition,
                             Quaternion.identity
                         );
+                        obstacle.transform.parent = this.transform;
                     }
                     groundTiles.Add(tile);
                 }
