@@ -3,21 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SpellCaster : MonoBehaviour {
-    [SerializeField] Ability ability;
-    [SerializeField] Ability ability2;
-    [SerializeField] Transform firePoint;
+    [SerializeField] private List<KeyCode> abilityKeyCodes;
+    [SerializeField] private List<Ability> abilities;
+    [SerializeField] private Transform firePoint;
 
+    private Ability selectedAbility;
     void Start() {
-        ability.Initialize();
-        ability2.Initialize();
+        selectedAbility = abilities[0];
+        foreach(Ability ability in abilities) {
+            ability.Initialize();
+        }
     }
 
     void Update() {
-        if (Input.GetMouseButtonDown(0)) {
-            CastSpell(ability);
+        for (int i = 0; i < abilityKeyCodes.Count; ++i) {
+            if (Input.GetKeyDown(abilityKeyCodes[i])) {
+                selectedAbility = abilities[i];
+            }
         }
-        if (Input.GetMouseButtonDown(1)) {
-            CastSpell(ability2);
+
+        if (selectedAbility && Input.GetMouseButtonDown(0)) {
+            CastSpell(selectedAbility);
         }
     }
 
