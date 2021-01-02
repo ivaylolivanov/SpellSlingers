@@ -160,8 +160,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cf03b219a1caa5fb8f7bd21e18b743f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ability: {fileID: 11400000, guid: 23b48547c589673c6b6dac63f8a9cd28, type: 2}
-  ability2: {fileID: 11400000, guid: a0b125249c22537bab10cec92e0e1f06, type: 2}
+  abilityKeyCodes: 7100000065000000
+  abilities:
+  - {fileID: 11400000, guid: 23b48547c589673c6b6dac63f8a9cd28, type: 2}
+  - {fileID: 11400000, guid: a0b125249c22537bab10cec92e0e1f06, type: 2}
   firePoint: {fileID: 526909475520858664}
 --- !u!114 &3113456009487712621
 MonoBehaviour:
