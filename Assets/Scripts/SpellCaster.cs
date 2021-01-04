@@ -23,14 +23,14 @@ public class SpellCaster : MonoBehaviour {
         }
 
         if (selectedAbility && Input.GetMouseButtonDown(0)) {
-            CastSpell(selectedAbility);
+            CastSpell();
         }
     }
 
-    void CastSpell(Ability castingAbility) {
-        if(! castingAbility.IsInCooldown()) {
-            castingAbility.Execute(firePoint);
-            StartCoroutine(castingAbility.Cooldown(this));
+    void CastSpell() {
+        if(! selectedAbility.IsInCooldown()) {
+            selectedAbility.Execute(firePoint);
+            StartCoroutine(selectedAbility.Cooldown(this));
         }
     }
 }
