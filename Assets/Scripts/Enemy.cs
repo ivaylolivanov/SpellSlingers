@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour {
-    [SerializeField] private float moveSpeed = 4f;
-    [SerializeField] private float aggroRange = 5f;
-    [SerializeField] private LayerMask targetLayer;
     [SerializeField] private Transform attackPoint;
     [SerializeField] private Weapon weapon;
 
-    private Rigidbody2D rb;
+    [Header("Targeting configuration variables")]
+    [SerializeField] private float aggroRange = 5f;
+    [SerializeField] private LayerMask targetLayer;
 
+    private Movement movement;
     void Start() {
         if (targetLayer <= 0) {
             targetLayer = LayerMask.GetMask("Player");
         }
+        movement = GetComponent<Movement>();
         weapon.Initialize(transform);
-        rb = GetComponent<Rigidbody2D>();
     }
 
     void Update() {
@@ -25,25 +25,28 @@ public class Enemy : MonoBehaviour {
             aggroRange,
             targetLayer
         );
-        if (targets.Length > 0) {
+
+        if (targets.Length > 0)
+        {
             Transform target = FindClosestTarget(targets);
-            ChaseTarget(target);
-            if(! weapon.IsInCooldown()) {
+            float distance = GetDistanceToTarget(target);
+            if(distance > weapon.aRange) {
+                movement.AutoMove(target);
+            }
+            if (!weapon.IsInCooldown())
+            {
                 weapon.Hit(attackPoint);
                 StartCoroutine(weapon.Cooldown(this));
             }
         }
     }
 
-    Transform FindClosestTarget(Collider2D[] targets) {
+    private Transform FindClosestTarget(Collider2D[] targets) {
         Transform result = null;
         float minDistance = float.MaxValue;
 
         foreach(Collider2D target in targets) {
-            float distance = Vector2.Distance(
-                transform.position,
-                target.transform.position
-            );
+            float distance = GetDistanceToTarget(target.transform);
             if(minDistance > distance) {
                 minDistance = distance;
                 result = target.transform;
@@ -53,31 +56,13 @@ public class Enemy : MonoBehaviour {
         return result;
     }
 
-    private void ChaseTarget(Transform target) {
-        float distance = GetDistanceToTarget(target);
-        if (distance > weapon.aRange)
-        {
-            Vector2 lookDirection = (Vector2)target.position - rb.position;
-            float lookAngleRads = Mathf.Atan2(lookDirection.y, lookDirection.x);
-            float lookAngleDeg = Mathf.Rad2Deg * lookAngleRads;
-            float lookDirDegPov = lookAngleDeg - 90f;
-
-            rb.rotation = lookDirDegPov;
-            transform.position = Vector2.MoveTowards(
-                transform.position,
-                target.position,
-                moveSpeed * Time.deltaTime
-            );
-        }
-    }
-
     private float GetDistanceToTarget(Transform target) {
-        float result = Vector2.Distance(target.position, attackPoint.position);
+        float result = Vector2.Distance(target.position, this.transform.position);
 
         Collider2D collider = target.GetComponent<Collider2D>();
         if(collider) {
-            Vector2 closestPoint = collider.ClosestPoint(attackPoint.position);
-            result = Vector2.Distance(closestPoint, attackPoint.position);
+            Vector2 closestPoint = collider.ClosestPoint(this.transform.position);
+            result = Vector2.Distance(closestPoint, this.transform.position);
         }
 
         return result;

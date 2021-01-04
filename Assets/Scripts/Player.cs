@@ -1,32 +1,30 @@
 ﻿using UnityEngine;
 
 public class Player : MonoBehaviour {
-    [Header("Player Stats")]
-    [SerializeField] float speed = 5f;
+    private Rigidbody2D rb;
+    private Movement movement;
 
-    Rigidbody2D rb;
-    Vector2 movement;
-    Vector2 mouseWorldPosition;
+    private Vector2 mouseWorldPosition;
+    private Vector2 movementInput;
 
     void Start() {
         rb = GetComponent<Rigidbody2D>();
+        movement = GetComponent<Movement>();
     }
 
     void Update() {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-        movement = new Vector2(horizontal, vertical);
-
         mouseWorldPosition = Camera.main.ScreenToWorldPoint(
             Input.mousePosition
         );
+
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+        movementInput = new Vector2(horizontal, vertical);
     }
 
     void FixedUpdate() {
-        Vector2 step = movement * speed * Time.fixedDeltaTime;
-        rb.MovePosition(rb.position + step);
-
         Look2Mouse();
+        movement.Move(movementInput);
     }
 
     private void Look2Mouse() {
