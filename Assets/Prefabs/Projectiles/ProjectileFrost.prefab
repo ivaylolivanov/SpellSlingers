@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 3352433639859306563}
   - component: {fileID: 5003852629010263270}
   - component: {fileID: 355933100287625360}
-  - component: {fileID: -8313208266000598501}
+  - component: {fileID: 7874956720791433303}
   - component: {fileID: 3737204897751235645}
   m_Layer: 9
-  m_Name: ProjectileFire
+  m_Name: ProjectileFrost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 1e160d94a65feccdabd686c472a3467a, type: 3}
-  m_Color: {r: 1, g: 0.37177002, b: 0, a: 1}
+  m_Color: {r: 0, g: 0.72210264, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -105,7 +105,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!60 &-8313208266000598501
+--- !u!60 &7874956720791433303
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,6 +145,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa7cc2d325567768aaf7bd0344a089e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 10
-  knockbackForce: 15
-  damage: 30
+  range: 5
+  damage: 10
+  effect: {fileID: 11400000, guid: a9cf0a47e6940558fa1ee809a9ab4419, type: 2}

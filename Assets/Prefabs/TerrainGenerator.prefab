@@ -56,3 +56,4 @@ MonoBehaviour:
   groundHeight: 25
   randomFactor: 5
   shrinkTime: 60
+  obstacleSpawnChance: 0.95

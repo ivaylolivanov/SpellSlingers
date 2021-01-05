@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Movement : MonoBehaviour {
-    [SerializeField] float speed;
-
     private Rigidbody2D rb;
+    private ObjectStats stats;
+    private float speed;
 
     void Start() {
         rb = GetComponent<Rigidbody2D>();
+        stats = GetComponent<ObjectStats>();
+        speed = stats.movementSpeed.GetValue();
     }
 
     public void Move(Vector2 movementInput) {
@@ -28,9 +30,5 @@ public class Movement : MonoBehaviour {
             target.position,
             speed * Time.deltaTime
         );
-    }
-
-    public void SetSpeed(float speed) {
-        this.speed = speed;
     }
 }

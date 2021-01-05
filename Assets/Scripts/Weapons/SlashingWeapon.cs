@@ -27,9 +27,9 @@ public class SlashingWeapon : Weapon {
     }
 
     private void Damage(Collider2D target) {
-        Health health = target.GetComponent<Health>();
-        if(health) {
-            health.DoDamage(damage);
+        ObjectStats targetStats = target.GetComponent<ObjectStats>();
+        if(targetStats) {
+            targetStats.TakeDamage(damage);
         }
     }
 }

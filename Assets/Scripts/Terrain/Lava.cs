@@ -7,16 +7,16 @@ public class Lava : MonoBehaviour {
     [SerializeField] private float timeBetweenDamage = 2f;
 
     private bool waiting = false;
-    private HashSet<Health> targets;
+    private HashSet<ObjectStats> targets;
 
     void Start() {
-        targets = new HashSet<Health>();
+        targets = new HashSet<ObjectStats>();
     }
 
     void OnTriggerEnter2D(Collider2D target) {
-        Health targetHealth = target.GetComponent<Health>();
-        if(targetHealth) {
-            targets.Add(targetHealth);
+        ObjectStats targetStats = target.GetComponent<ObjectStats>();
+        if(targetStats) {
+            targets.Add(targetStats);
         }
     }
 
@@ -28,15 +28,15 @@ public class Lava : MonoBehaviour {
     }
 
     void OnTriggerExit2D(Collider2D target) {
-        Health targetHealth = target.GetComponent<Health>();
-        if(targetHealth) {
-            targets.Remove(targetHealth);
+        ObjectStats targetStats = target.GetComponent<ObjectStats>();
+        if(targetStats) {
+            targets.Remove(targetStats);
         }
     }
 
     private IEnumerator DamageTargets() {
-        foreach(Health target in targets) {
-            target.DoDamage(damage);
+        foreach(ObjectStats targetStats in targets) {
+            targetStats.TakeDamage(damage);
         }
         yield return new WaitForSeconds(timeBetweenDamage);
         waiting = false;

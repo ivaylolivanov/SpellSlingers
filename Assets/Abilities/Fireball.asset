@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a6a3b9dbb814a868a81d42fd6924813, type: 3}
-  m_Name: FireBall
+  m_Name: Fireball
   m_EditorClassIdentifier: 
-  aName: Fire Ball
-  aRange: 10
-  aForce: 20
-  aCooldown: 1
-  damage: 30
+  name: Fireball
+  range: 10
+  force: 20
+  cooldown: 1.5
+  effect: {fileID: 11400000, guid: 513f0a46b154bd9978ef39840a5ad605, type: 2}
+  damage: 5
   projectile: {fileID: 3118837667953308222, guid: 4187641e06780c0779f0abc3874cf107,
     type: 3}

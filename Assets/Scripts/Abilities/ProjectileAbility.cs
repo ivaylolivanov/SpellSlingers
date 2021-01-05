@@ -4,17 +4,18 @@ using UnityEngine;
 
 [CreateAssetMenu (menuName = "Abilities/ProjectileAbility")]
 public class ProjectileAbility : Ability {
-    public int damage = 10;
+    public int damage;
     public GameObject projectile;
 
     public override void Initialize() {
         projectile.GetComponent<Projectile>().SetDamage(damage);
-        projectile.GetComponent<Projectile>().SetRange(aRange);
-        aInCooldown = false;
+        projectile.GetComponent<Projectile>().SetRange(range);
+        projectile.GetComponent<Projectile>().SetEffect(effect);
+        inCooldown = false;
     }
 
     public override void Execute(Transform location) {
-        if(!aInCooldown) {
+        if(!inCooldown) {
             GameObject abilityProjectile = Instantiate(
                 projectile,
                 location.position,
@@ -23,11 +24,11 @@ public class ProjectileAbility : Ability {
             Rigidbody2D projectileRb
                 = abilityProjectile.GetComponent<Rigidbody2D>();
             projectileRb.AddForce(
-                location.up * aForce,
+                location.up * force,
                 ForceMode2D.Impulse
             );
 
-            aInCooldown = true;
+            inCooldown = true;
         }
     }
 }

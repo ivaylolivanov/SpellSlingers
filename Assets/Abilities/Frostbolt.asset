@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a6a3b9dbb814a868a81d42fd6924813, type: 3}
   m_Name: Frostbolt
   m_EditorClassIdentifier: 
-  aName: Frostbolt
-  aRange: 5
-  aForce: 10
-  aCooldown: 5
+  name: Frostbolt
+  range: 12
+  force: 10
+  cooldown: 1.5
+  effect: {fileID: 11400000, guid: 563d3853edc5c4595ae659df089faf21, type: 2}
   damage: 10
   projectile: {fileID: 3118837667953308222, guid: 2ee8bd005ec6c369ca3ce8643368bcdb,
     type: 3}

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
-{
-    [SerializeField] private float range = 7f;
+public class Projectile : MonoBehaviour {
+    [SerializeField] private float range;
     [SerializeField] private int damage;
+    [SerializeField] private AbilityEffect effect;
 
     private Vector2 origin;
 
@@ -24,9 +24,10 @@ public class Projectile : MonoBehaviour
     }
 
     void OnCollisionEnter2D(Collision2D coll) {
-        Health health = coll.gameObject.GetComponent<Health>();
-        if(health != null) {
-            health.DoDamage(damage);
+        ObjectStats stats = coll.gameObject.GetComponent<ObjectStats>();
+        if(stats) {
+            stats.TakeDamage(damage);
+            stats.ApplyEffect(effect);
         }
         Explode();
     }
@@ -43,5 +44,9 @@ public class Projectile : MonoBehaviour
 
     public void SetRange(float range) {
         this.range = range;
+    }
+
+    public void SetEffect(AbilityEffect effect) {
+        this.effect = effect;
     }
 }
