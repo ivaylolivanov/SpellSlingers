@@ -26,17 +26,17 @@ public class Enemy : MonoBehaviour {
             targetLayer
         );
 
-        if (targets.Length > 0)
-        {
+        if (targets.Length > 0) {
             Transform target = FindClosestTarget(targets);
-            float distance = GetDistanceToTarget(target);
-            if(distance > weapon.aRange) {
-                movement.AutoMove(target);
-            }
-            if (!weapon.IsInCooldown())
-            {
-                weapon.Hit(attackPoint);
-                StartCoroutine(weapon.Cooldown(this));
+            if (target) {
+                float distance = GetDistanceToTarget(target);
+                if (distance > weapon.aRange) {
+                    movement.AutoMove(target);
+                }
+                if (!weapon.IsInCooldown()) {
+                    weapon.Hit(attackPoint);
+                    StartCoroutine(weapon.Cooldown(this));
+                }
             }
         }
     }
@@ -46,6 +46,8 @@ public class Enemy : MonoBehaviour {
         float minDistance = float.MaxValue;
 
         foreach(Collider2D target in targets) {
+            if (! IsTargetOnLineOfSight(target)) { continue; }
+
             float distance = GetDistanceToTarget(target.transform);
             if(minDistance > distance) {
                 minDistance = distance;
@@ -54,6 +56,48 @@ public class Enemy : MonoBehaviour {
         }
 
         return result;
+    }
+
+    private bool IsTargetOnLineOfSight(Collider2D target) {
+        bool result = false;
+        Vector2 targetDirection = GetTargetDirection(target);
+
+        RaycastHit2D[] lineOfSight = Physics2D.RaycastAll(
+            attackPoint.position,
+            targetDirection,
+            aggroRange
+        );
+
+        if(lineOfSight.Length > 0) {
+            GameObject seenObject = lineOfSight[0].transform.gameObject;
+            if(
+                GameObject.ReferenceEquals(seenObject, transform.gameObject)
+                && lineOfSight.Length > 1
+            ) {
+                seenObject = lineOfSight[1].transform.gameObject;
+            }
+            result = GameObject.ReferenceEquals(
+                seenObject,
+                target.transform.gameObject
+            );
+        }
+
+        return result;
+    }
+
+    private Vector2 GetTargetDirection(Collider2D target) {
+        Vector2 targetDirection = (
+            target.transform.position - attackPoint.position
+        ).normalized;
+        float targetDirectionAngleRads = Mathf.Atan2(
+            targetDirection.y,
+            targetDirection.x
+        );
+        float targetDirectionAngleDeg = Mathf.Rad2Deg
+            * targetDirectionAngleRads;
+        float targetDirectionDegPov = targetDirectionAngleDeg + 180;
+
+        return targetDirection;
     }
 
     private float GetDistanceToTarget(Transform target) {
