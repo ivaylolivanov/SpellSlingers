@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5879623671983044861}
   - component: {fileID: 5805487006656609779}
   - component: {fileID: -1420224899390627354}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Lava
   m_TagString: Terrain
   m_Icon: {fileID: 0}
