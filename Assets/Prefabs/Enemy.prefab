@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1017443533463916468}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: AttackPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,10 +42,11 @@ GameObject:
   - component: {fileID: 4756450261252917120}
   - component: {fileID: 1257213598}
   - component: {fileID: 3975126766425455192}
-  - component: {fileID: 2527378056802383959}
+  - component: {fileID: 4672819395136496150}
+  - component: {fileID: 8971307699808447022}
   - component: {fileID: 3942397112150629023}
   - component: {fileID: 9183541839948190292}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +65,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1017443533463916468}
-  - {fileID: 8511861702870767761}
+  - {fileID: 2793703247398860335}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -107,7 +108,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 6e32f199c8fbc05a78a07aeb4ce5a054, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9f2a95ce14de3968babcf8609ba63e8f, type: 3}
   m_Color: {r: 1, g: 0.05074531, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -165,7 +166,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &2527378056802383959
+--- !u!114 &4672819395136496150
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -174,16 +175,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 8497901236360634320}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2381f9ee8a5cf6143b64042c08c19625, type: 3}
+  m_Script: {fileID: 11500000, guid: eb91a4d7aee14ae75b07ac2712ef3796, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health:
     baseValue: 100
   movementSpeed:
-    baseValue: 3
+    baseValue: 4
   damage:
-    baseValue: 5
-  healthBar: {fileID: 8511861702907684537}
+    baseValue: 0
+  equippedWeapon: {fileID: 11400000, guid: 16a5827ebdffb00b98777458055ea346, type: 2}
+  abilities: []
+--- !u!114 &8971307699808447022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8497901236360634320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 607df982a0b878d6c86405cc4e31564d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPoint: {fileID: 1017443533463916468}
+  hitIgnoreLayers: []
 --- !u!114 &3942397112150629023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,6 +218,11 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 256
+  raycastIgnoreLayers:
+  - serializedVersion: 2
+    m_Bits: 1024
+  - serializedVersion: 2
+    m_Bits: 2048
 --- !u!114 &9183541839948190292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,18 +235,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1db3e6c16840131da14dd26ac465894, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &4955475821538659186
+--- !u!1001 &1450278182108538316
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 9202714308298732980}
     m_Modifications:
-    - target: {fileID: 3667432165291188928, guid: da0332844b43d08fba13218704b86812,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3667432165291188931, guid: da0332844b43d08fba13218704b86812,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -234,16 +250,6 @@ PrefabInstance:
     - target: {fileID: 3667432165291188931, guid: da0332844b43d08fba13218704b86812,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3667432165795609232, guid: da0332844b43d08fba13218704b86812,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3667432166344175051, guid: da0332844b43d08fba13218704b86812,
-        type: 3}
-      propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3667432166381605859, guid: da0332844b43d08fba13218704b86812,
@@ -356,22 +362,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthBarCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 3667432166381605863, guid: da0332844b43d08fba13218704b86812,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da0332844b43d08fba13218704b86812, type: 3}
---- !u!224 &8511861702870767761 stripped
+--- !u!224 &2793703247398860335 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3667432166381605859, guid: da0332844b43d08fba13218704b86812,
     type: 3}
-  m_PrefabInstance: {fileID: 4955475821538659186}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8511861702907684537 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3667432166344175051, guid: da0332844b43d08fba13218704b86812,
-    type: 3}
-  m_PrefabInstance: {fileID: 4955475821538659186}
+  m_PrefabInstance: {fileID: 1450278182108538316}
   m_PrefabAsset: {fileID: 0}

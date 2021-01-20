@@ -9,14 +9,26 @@ public class Enemy : MonoBehaviour {
     [Header("Targeting configuration variables")]
     [SerializeField] private float aggroRange = 5f;
     [SerializeField] private LayerMask targetLayer;
+    [SerializeField] private LayerMask[] raycastIgnoreLayers;
 
     private Movement movement;
+    private int raycastIgnoreLayerMask = 0;
+    private Combat combat;
+
     void Start() {
+        combat = GetComponent<Combat>();
+
         if (targetLayer <= 0) {
             targetLayer = LayerMask.GetMask("Player");
         }
+
+        for (int i = 0; i < raycastIgnoreLayers.Length; ++i) {
+            raycastIgnoreLayerMask |= raycastIgnoreLayers[i];
+        }
+        raycastIgnoreLayerMask = ~raycastIgnoreLayerMask;
+        combat.SetHitIgnoreLayerMask(raycastIgnoreLayerMask);
+
         movement = GetComponent<Movement>();
-        weapon.Initialize(transform);
     }
 
     void Update() {
@@ -30,12 +42,11 @@ public class Enemy : MonoBehaviour {
             Transform target = FindClosestTarget(targets);
             if (target) {
                 float distance = GetDistanceToTarget(target);
-                if (distance > weapon.aRange) {
+                if (distance > weapon.range) {
                     movement.AutoMove(target);
                 }
-                if (!weapon.IsInCooldown()) {
-                    weapon.Hit(attackPoint);
-                    StartCoroutine(weapon.Cooldown(this));
+                else {
+                    combat.WeaponAttack();
                 }
             }
         }
@@ -62,22 +73,16 @@ public class Enemy : MonoBehaviour {
         bool result = false;
         Vector2 targetDirection = GetTargetDirection(target);
 
-        RaycastHit2D[] lineOfSight = Physics2D.RaycastAll(
+        RaycastHit2D lineOfSight = Physics2D.Raycast(
             attackPoint.position,
             targetDirection,
-            aggroRange
+            aggroRange,
+            raycastIgnoreLayerMask
         );
 
-        if(lineOfSight.Length > 0) {
-            GameObject seenObject = lineOfSight[0].transform.gameObject;
-            if(
-                GameObject.ReferenceEquals(seenObject, transform.gameObject)
-                && lineOfSight.Length > 1
-            ) {
-                seenObject = lineOfSight[1].transform.gameObject;
-            }
+        if(lineOfSight) {
             result = GameObject.ReferenceEquals(
-                seenObject,
+                lineOfSight.transform.gameObject,
                 target.transform.gameObject
             );
         }

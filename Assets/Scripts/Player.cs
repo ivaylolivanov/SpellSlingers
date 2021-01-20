@@ -1,7 +1,11 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Player : MonoBehaviour {
+    [SerializeField] private List<KeyCode> abilityHotkeys;
+
     private Rigidbody2D rb;
+    private Combat combat;
     private Movement movement;
 
     private Vector2 mouseWorldPosition;
@@ -9,6 +13,7 @@ public class Player : MonoBehaviour {
 
     void Start() {
         rb = GetComponent<Rigidbody2D>();
+        combat = GetComponent<Combat>();
         movement = GetComponent<Movement>();
     }
 
@@ -20,6 +25,20 @@ public class Player : MonoBehaviour {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         movementInput = new Vector2(horizontal, vertical);
+
+        for (int i = 0; i < abilityHotkeys.Count; ++i) {
+            if (Input.GetKeyDown(abilityHotkeys[i])) {
+                combat.SelectAbility(i);
+            }
+        }
+
+        if(Input.GetMouseButtonDown(0)) {
+            StartCoroutine(combat.CastAbility());
+        }
+
+        if(Input.GetMouseButtonDown(1)) {
+            combat.WeaponAttack();
+        }
     }
 
     void FixedUpdate() {

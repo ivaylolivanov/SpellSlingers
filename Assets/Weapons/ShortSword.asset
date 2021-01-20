@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c49182c2cdcec980a1a8f2264189b75, type: 3}
   m_Name: ShortSword
   m_EditorClassIdentifier: 
-  aName: Short Sword
-  aRange: 0.75
-  aForce: 15
-  aCooldown: 1.2
+  name: ShortSword
+  range: 1
+  force: 0
+  attackSpeed: 1.4
   damage: 10
