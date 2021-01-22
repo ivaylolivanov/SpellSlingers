@@ -11,14 +11,17 @@ public class Player : MonoBehaviour {
     private Vector2 mouseWorldPosition;
     private Vector2 movementInput;
 
+    private Camera mainCamera;
+
     void Start() {
         rb = GetComponent<Rigidbody2D>();
         combat = GetComponent<Combat>();
         movement = GetComponent<Movement>();
+        mainCamera = Camera.main;
     }
 
     void Update() {
-        mouseWorldPosition = Camera.main.ScreenToWorldPoint(
+        mouseWorldPosition = mainCamera.ScreenToWorldPoint(
             Input.mousePosition
         );
 

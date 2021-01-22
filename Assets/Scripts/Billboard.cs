@@ -2,9 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Billboard : MonoBehaviour
-{
+public class Billboard : MonoBehaviour {
+
+    private Camera mainCamera;
+
+    void Awake() {
+        mainCamera = Camera.main;
+    }
+
     void LateUpdate() {
-        transform.LookAt(transform.position + Camera.main.transform.forward);
+        transform.LookAt(transform.position + mainCamera.transform.forward);
     }
 }
