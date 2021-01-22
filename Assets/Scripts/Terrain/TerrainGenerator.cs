@@ -37,11 +37,10 @@ public class TerrainGenerator : MonoBehaviour {
     private IEnumerator ShrinkGround() {
         List<GameObject> tilesToDelete = new List<GameObject>();
         foreach(GameObject tile in groundTiles) {
-            float distance = Vector2.Distance(
-                terrainCenter,
-                tile.transform.position
-            );
-            if(distance > shrinkRadius) {
+            float distance = (
+                terrainCenter - (Vector2)tile.transform.position
+            ).sqrMagnitude;
+            if(distance > shrinkRadius * shrinkRadius) {
                 Vector2 tilePosition = tile.transform.position;
                 tilesToDelete.Add(tile);
                 Destroy(tile);

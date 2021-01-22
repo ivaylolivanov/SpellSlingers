@@ -42,7 +42,7 @@ public class Enemy : MonoBehaviour {
             Transform target = FindClosestTarget(targets);
             if (target) {
                 float distance = GetDistanceToTarget(target);
-                if (distance > weapon.range) {
+                if (distance > weapon.range * weapon.range) {
                     movement.AutoMove(target);
                 }
                 else {
@@ -106,12 +106,12 @@ public class Enemy : MonoBehaviour {
     }
 
     private float GetDistanceToTarget(Transform target) {
-        float result = Vector2.Distance(target.position, this.transform.position);
+        float result = (target.position - this.transform.position).sqrMagnitude;
 
         Collider2D collider = target.GetComponent<Collider2D>();
         if(collider) {
             Vector2 closestPoint = collider.ClosestPoint(this.transform.position);
-            result = Vector2.Distance(closestPoint, this.transform.position);
+            result = (closestPoint - (Vector2)this.transform.position).sqrMagnitude;
         }
 
         return result;

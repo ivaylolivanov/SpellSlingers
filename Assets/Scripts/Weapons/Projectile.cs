@@ -14,11 +14,11 @@ public class Projectile : MonoBehaviour {
     }
 
     void Update() {
-        float currentDistance = Mathf.Abs(
-            Vector2.Distance(transform.position, origin)
-        );
+        float currentDistance = (
+            (Vector2)transform.position - origin
+        ).sqrMagnitude;
 
-        if(currentDistance > range) {
+        if(currentDistance > range * range) {
             Explode();
         }
     }
