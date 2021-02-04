@@ -49,8 +49,11 @@ public class Player : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        Look2Mouse();
         movement.Move(movementInput);
+    }
+
+    void LateUpdate() {
+        Look2Mouse();
     }
 
     private void Look2Mouse() {
