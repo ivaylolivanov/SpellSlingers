@@ -147,4 +147,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: 10
   damage: 10
-  effect: {fileID: 11400000, guid: 16fe020b7a3f1b1a4896099aca10419f, type: 2}
+  effect: {fileID: 11400000, guid: 513f0a46b154bd9978ef39840a5ad605, type: 2}
