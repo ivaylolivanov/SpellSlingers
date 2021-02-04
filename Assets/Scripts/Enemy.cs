@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour {
     [Header("Targeting configuration variables")]
     [SerializeField] private float aggroRange = 5f;
     [SerializeField] private LayerMask targetLayer;
-    [SerializeField] private LayerMask[] raycastIgnoreLayers;
+    [SerializeField] private LayerMask raycastIgnoreLayers;
 
     private Movement movement;
     private int raycastIgnoreLayerMask = 0;
@@ -22,10 +22,7 @@ public class Enemy : MonoBehaviour {
             targetLayer = LayerMask.GetMask("Player");
         }
 
-        for (int i = 0; i < raycastIgnoreLayers.Length; ++i) {
-            raycastIgnoreLayerMask |= raycastIgnoreLayers[i];
-        }
-        raycastIgnoreLayerMask = ~raycastIgnoreLayerMask;
+        raycastIgnoreLayerMask = ~raycastIgnoreLayers.value;
         combat.SetHitIgnoreLayerMask(raycastIgnoreLayerMask);
 
         movement = GetComponent<Movement>();

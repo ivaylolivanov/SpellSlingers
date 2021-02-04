@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterStats))]
 public class Combat : MonoBehaviour {
     [SerializeField] private Transform attackPoint;
-    [SerializeField] private LayerMask[] hitIgnoreLayers;
+    [SerializeField] private LayerMask hitIgnoreLayers;
 
     private CharacterStats stats;
     private List<string> abilitiesOnCooldown;
@@ -18,10 +18,8 @@ public class Combat : MonoBehaviour {
     public void Start() {
         stats = GetComponent<CharacterStats>();
         abilitiesOnCooldown = new List<string>();
-        for (int i = 0; i < hitIgnoreLayers.Length; ++i) {
-            hitIgnoreLayerMask |= hitIgnoreLayers[i];
-        }
-        hitIgnoreLayerMask = ~hitIgnoreLayerMask;
+
+        hitIgnoreLayerMask = ~hitIgnoreLayers.value;
     }
 
     public void WeaponAttack() {
