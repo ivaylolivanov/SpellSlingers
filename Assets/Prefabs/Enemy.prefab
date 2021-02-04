@@ -199,7 +199,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPoint: {fileID: 1017443533463916468}
-  hitIgnoreLayers: []
+  hitIgnoreLayers:
+  - serializedVersion: 2
+    m_Bits: 2048
+  - serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &3942397112150629023
 MonoBehaviour:
   m_ObjectHideFlags: 0
