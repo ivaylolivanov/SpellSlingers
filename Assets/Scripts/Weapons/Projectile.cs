@@ -27,7 +27,9 @@ public class Projectile : MonoBehaviour {
         ObjectStats stats = coll.gameObject.GetComponent<ObjectStats>();
         if(stats) {
             stats.TakeDamage(damage);
-            stats.ApplyEffect(effect);
+            if (effect) {
+                stats.ApplyEffect(effect);
+            }
         }
         Explode();
     }
