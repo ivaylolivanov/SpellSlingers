@@ -36,6 +36,10 @@ public class Combat : MonoBehaviour {
         selectedAbility = stats.GetAbility(abilityIndex);
     }
 
+    public void RotateAttackPoint(float povDegree) {
+        attackPoint.rotation = Quaternion.Euler(new Vector3(0, 0, povDegree));
+    }
+
     public IEnumerator CastAbility() {
         if ((selectedAbility != null)
             && !abilitiesOnCooldown.Contains(selectedAbility.abilityName)
