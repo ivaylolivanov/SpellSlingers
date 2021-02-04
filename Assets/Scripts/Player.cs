@@ -3,8 +3,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
     [SerializeField] private List<KeyCode> abilityHotkeys;
+    [SerializeField] private List<Sprite> idleSprites;
 
     private Rigidbody2D rb;
+    private SpriteRenderer spriteRenderer;
+
     private Combat combat;
     private Movement movement;
 
@@ -15,6 +18,7 @@ public class Player : MonoBehaviour {
 
     void Start() {
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         combat = GetComponent<Combat>();
         movement = GetComponent<Movement>();
         mainCamera = Camera.main;
@@ -53,7 +57,25 @@ public class Player : MonoBehaviour {
         Vector2 lookDir = mouseWorldPosition - rb.position;
         float lookAngleRads = Mathf.Atan2(lookDir.y, lookDir.x);
         float lookDirDeg = lookAngleRads * Mathf.Rad2Deg;
+
+        if(lookDirDeg > -45 && lookDirDeg <= 45) {
+            spriteRenderer.sprite = idleSprites[1];
+            spriteRenderer.flipX = false;
+        }
+        else if(lookDirDeg > 45 && lookDirDeg <= 135) {
+            spriteRenderer.sprite = idleSprites[2];
+            spriteRenderer.flipX = false;
+        }
+        else if(lookDirDeg > 135 || lookDirDeg <= -135) {
+            spriteRenderer.sprite = idleSprites[1];
+            spriteRenderer.flipX = true;
+        }
+        else {
+            spriteRenderer.sprite = idleSprites[0];
+            spriteRenderer.flipX = false;
+        }
+
         float lookDirDegPOV = lookDirDeg - 90f;
-        rb.rotation = lookDirDegPOV;
+        combat.RotateAttackPoint(lookDirDegPOV);
     }
 }
