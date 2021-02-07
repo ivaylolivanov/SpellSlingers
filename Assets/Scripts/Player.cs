@@ -3,10 +3,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
     [SerializeField] private List<KeyCode> abilityHotkeys;
-    [SerializeField] private List<Sprite> idleSprites;
 
     private Rigidbody2D rb;
-    private SpriteRenderer spriteRenderer;
 
     private Combat combat;
     private Movement movement;
@@ -15,13 +13,14 @@ public class Player : MonoBehaviour {
     private Vector2 movementInput;
 
     private Camera mainCamera;
+    private Animator animator;
 
     void Start() {
         rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
         combat = GetComponent<Combat>();
         movement = GetComponent<Movement>();
         mainCamera = Camera.main;
+	animator = GetComponent<Animator>();
     }
 
     void Update() {
@@ -29,9 +28,13 @@ public class Player : MonoBehaviour {
             Input.mousePosition
         );
 
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-        movementInput = new Vector2(horizontal, vertical);
+        movementInput.x = Input.GetAxis("Horizontal");
+        movementInput.y = Input.GetAxis("Vertical");
+	if(movementInput != Vector2.zero) {
+	    animator.SetFloat("horizontal", movementInput.x);
+	    animator.SetFloat("vertical", movementInput.y);
+	}
+	animator.SetFloat("speed", movementInput.sqrMagnitude);
 
         for (int i = 0; i < abilityHotkeys.Count; ++i) {
             if (Input.GetKeyDown(abilityHotkeys[i])) {
@@ -49,35 +52,14 @@ public class Player : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        movement.Move(movementInput);
-    }
-
-    void LateUpdate() {
         Look2Mouse();
+        movement.Move(movementInput);
     }
 
     private void Look2Mouse() {
         Vector2 lookDir = mouseWorldPosition - rb.position;
         float lookAngleRads = Mathf.Atan2(lookDir.y, lookDir.x);
         float lookDirDeg = lookAngleRads * Mathf.Rad2Deg;
-
-        if(lookDirDeg > -45 && lookDirDeg <= 45) {
-            spriteRenderer.sprite = idleSprites[1];
-            spriteRenderer.flipX = false;
-        }
-        else if(lookDirDeg > 45 && lookDirDeg <= 135) {
-            spriteRenderer.sprite = idleSprites[2];
-            spriteRenderer.flipX = false;
-        }
-        else if(lookDirDeg > 135 || lookDirDeg <= -135) {
-            spriteRenderer.sprite = idleSprites[1];
-            spriteRenderer.flipX = true;
-        }
-        else {
-            spriteRenderer.sprite = idleSprites[0];
-            spriteRenderer.flipX = false;
-        }
-
         float lookDirDegPOV = lookDirDeg - 90f;
         combat.RotateAttackPoint(lookDirDegPOV);
     }
