@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1999838311217361678}
   - component: {fileID: 1999838311217361777}
   m_Layer: 11
-  m_Name: Tilemap
+  m_Name: TilemapTerrainGeneration
   m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1999838311217361779}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -147,17 +147,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21150b03a1ccdc7b68de655eee6ff679, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 50
-  height: 50
-  groundWidth: 25
-  groundHeight: 25
+  width: 200
+  height: 200
+  groundWidth: 75
+  groundHeight: 75
   shrinkTime: 60
   randomFactor: 5
   obstacleSpawnChance: 0.98
   obstacles:
   - {fileID: 2755439555408585334, guid: 438c15676cacd308982f6b7c6193a6a3, type: 3}
   - {fileID: 2755439555408585334, guid: 7d3e1819e313c6f8db68bcb83e392627, type: 3}
-  lavaDamage: 10
-  lavaDamagePeriod: 3
+  lavaDamage: 5
+  lavaDamagePeriod: 1
   lavaTile: {fileID: 11400000, guid: db77ddd219da737d3818bb663d75f3b4, type: 2}
   groundTile: {fileID: 11400000, guid: dde3f4ea2965ef896a4ae24d50fefb23, type: 2}
