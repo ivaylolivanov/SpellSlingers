@@ -315,9 +315,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1009643920}
   - component: {fileID: 1009643919}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Grid
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -709,16 +709,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 8511861701813774769, guid: 598700faad4ff455eb7b2ea07d0ca80e,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8511861701813774769, guid: 598700faad4ff455eb7b2ea07d0ca80e,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9202714308298732980, guid: 598700faad4ff455eb7b2ea07d0ca80e,
         type: 3}
