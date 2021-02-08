@@ -46,7 +46,6 @@ public class Combat : MonoBehaviour {
             selectedAbility.Execute(attackPoint);
             yield return new WaitForSeconds(selectedAbility.cooldown);
             abilitiesOnCooldown.Remove(selectedAbility.abilityName);
-            selectedAbility = null;
         }
     }
 
