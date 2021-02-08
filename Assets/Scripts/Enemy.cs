@@ -68,7 +68,8 @@ public class Enemy : MonoBehaviour {
 
     private bool IsTargetOnLineOfSight(Collider2D target) {
         bool result = false;
-        Vector2 targetDirection = GetTargetDirection(target);
+        Vector2 closestPoint = target.ClosestPoint(this.transform.position);
+        Vector2 targetDirection = GetTargetDirection(closestPoint);
 
         RaycastHit2D lineOfSight = Physics2D.Raycast(
             attackPoint.position,
@@ -87,19 +88,13 @@ public class Enemy : MonoBehaviour {
         return result;
     }
 
-    private Vector2 GetTargetDirection(Collider2D target) {
-        Vector2 targetDirection = (
-            target.transform.position - attackPoint.position
-        ).normalized;
-        float targetDirectionAngleRads = Mathf.Atan2(
-            targetDirection.y,
-            targetDirection.x
-        );
-        float targetDirectionAngleDeg = Mathf.Rad2Deg
-            * targetDirectionAngleRads;
-        float targetDirectionDegPov = targetDirectionAngleDeg + 180;
+    private Vector2 GetTargetDirection(Vector2 target) {
+        Vector2 direction = (target - (Vector2)attackPoint.position).normalized;
+        float angleRads = Mathf.Atan2(direction.y, direction.x);
 
-        return targetDirection;
+        direction = Quaternion.Euler(0, angleRads, 0) * direction;
+
+        return direction;
     }
 
     private float GetDistanceToTarget(Transform target) {
