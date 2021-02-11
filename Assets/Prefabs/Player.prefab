@@ -160,6 +160,7 @@ MonoBehaviour:
   abilities:
   - {fileID: 11400000, guid: 23b48547c589673c6b6dac63f8a9cd28, type: 2}
   - {fileID: 11400000, guid: a0b125249c22537bab10cec92e0e1f06, type: 2}
+  - {fileID: 11400000, guid: 33f2353eb63206e4b92fd09d453f1e2f, type: 2}
 --- !u!114 &8455006451054274168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,7 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dd08be6daa86f45d8c152d5898e83f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityHotkeys: 6500000071000000
+  abilityHotkeys: 650000007100000072000000
 --- !u!95 &1952567174
 Animator:
   serializedVersion: 3
