@@ -52,6 +52,8 @@ public class TilemapTerrainGenerator : MonoBehaviour {
 
     void FixedUpdate() {
         for (int i = 0; i < objectsOnTheMap.Count; ++i) {
+	    if(objectsOnTheMap[i] == null) continue;
+
             Vector3Int position = Vector3Int.FloorToInt(objectsOnTheMap[i].transform.position);
             ObjectStats stats = objectsOnTheMap[i].GetComponent<ObjectStats>();
             if(stats && (! groundTiles.Contains(position))) {
