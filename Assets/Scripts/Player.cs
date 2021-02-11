@@ -48,11 +48,11 @@ public class Player : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        Look2Mouse();
+        AimAtMouse();
         movement.Move(movementInput);
     }
 
-    private void Look2Mouse() {
+    private void AimAtMouse() {
         Vector2 lookDir = mouseWorldPosition - rb.position;
         float lookAngleRads = Mathf.Atan2(lookDir.y, lookDir.x);
         float lookDirDeg = lookAngleRads * Mathf.Rad2Deg;
