@@ -15,11 +15,14 @@ public class Combat : MonoBehaviour {
 
     private int hitIgnoreLayerMask = 0;
 
+    private Camera mainCamera;
+
     public void Start() {
         stats = GetComponent<CharacterStats>();
         abilitiesOnCooldown = new List<string>();
 
         hitIgnoreLayerMask = ~hitIgnoreLayers.value;
+	mainCamera = Camera.main;
     }
 
     public void WeaponAttack() {
@@ -39,13 +42,24 @@ public class Combat : MonoBehaviour {
     }
 
     public IEnumerator CastAbility() {
-        if ((selectedAbility != null)
-            && !abilitiesOnCooldown.Contains(selectedAbility.abilityName)
-        ) {
-            abilitiesOnCooldown.Add(selectedAbility.abilityName);
-            selectedAbility.Execute(attackPoint);
-            yield return new WaitForSeconds(selectedAbility.cooldown);
-            abilitiesOnCooldown.Remove(selectedAbility.abilityName);
+        if(selectedAbility != null) {
+            if(! abilitiesOnCooldown.Contains(selectedAbility.abilityName)) {
+
+                abilitiesOnCooldown.Add(selectedAbility.abilityName);
+
+                string abilityType = selectedAbility.GetType().ToString();
+                if(abilityType.Contains("Point")) {
+                    Vector2 mouseWorldPosition = mainCamera.ScreenToWorldPoint(
+                        Input.mousePosition
+                    );
+                    selectedAbility.Execute(mouseWorldPosition);
+                } else {
+		    selectedAbility.Execute(attackPoint);
+                }
+
+                yield return new WaitForSeconds(selectedAbility.cooldown);
+                abilitiesOnCooldown.Remove(selectedAbility.abilityName);
+            }
         }
     }
 
