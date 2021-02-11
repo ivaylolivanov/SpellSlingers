@@ -149,8 +149,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 200
   height: 200
-  groundWidth: 75
-  groundHeight: 75
+  groundWidth: 50
+  groundHeight: 50
   shrinkTime: 60
   randomFactor: 5
   obstacleSpawnChance: 0.98
