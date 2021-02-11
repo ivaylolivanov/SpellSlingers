@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baed4bce93252b593ae56c8e9b4bff16, type: 3}
   m_Name: FireballBurn
   m_EditorClassIdentifier: 
-  name: Periodic damage
+  effectName: Burn
   duration: 3
   amount: 21
   ticks: 3

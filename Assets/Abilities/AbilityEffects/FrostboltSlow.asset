@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 675e36dfa943ea694be18a3087fa53c1, type: 3}
   m_Name: FrostboltSlow
   m_EditorClassIdentifier: 
-  name: SlowEffect
-  duration: 2
+  effectName: Slow
+  duration: 5
   slowAmount: 2
