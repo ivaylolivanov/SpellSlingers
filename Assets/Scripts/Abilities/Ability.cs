@@ -11,4 +11,5 @@ public abstract class Ability : ScriptableObject {
 
     public abstract void Initialize();
     public abstract void Execute(Transform location);
+    public abstract void Execute(Vector2 location);
 }
