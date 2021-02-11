@@ -26,4 +26,6 @@ public class ProjectileAbility : Ability {
             ForceMode2D.Impulse
         );
     }
+
+    public override void Execute(Vector2 location) {}
 }
