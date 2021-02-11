@@ -6,6 +6,12 @@ public class CharacterStats : ObjectStats {
     [SerializeField] private Weapon equippedWeapon;
     [SerializeField] private List<Ability> abilities;
 
+    void Start() {
+	foreach(Ability ability in abilities) {
+	    ability.Initialize();
+	}
+    }
+
     public Weapon EquipWeapon(Weapon newWeapon) {
         Weapon oldWeapon = equippedWeapon;
         equippedWeapon = newWeapon;
