@@ -14,11 +14,14 @@ public class Movement : MonoBehaviour {
     }
 
     public void Move(Vector2 movementInput) {
+	speed = stats.movementSpeed.GetValue();
         Vector2 step = movementInput * speed * Time.fixedDeltaTime;
         rb.MovePosition(rb.position + step);
     }
 
     public void AutoMove(Transform target) {
+	speed = stats.movementSpeed.GetValue();
+
         Vector2 lookDirection = (Vector2)target.position - rb.position;
         float lookAngleRads = Mathf.Atan2(lookDirection.y, lookDirection.x);
         float lookAngleDeg = Mathf.Rad2Deg * lookAngleRads;
