@@ -6,11 +6,14 @@ public class Projectile : MonoBehaviour {
     [SerializeField] private float range;
     [SerializeField] private int damage;
     [SerializeField] private AbilityEffect effect;
+    [SerializeField] private GameObject destroyVFX;
 
     private Vector2 origin;
+    private Animator animator;
 
     void Awake() {
         origin = transform.position;
+	animator = GetComponent<Animator>();
     }
 
     void Update() {
@@ -35,8 +38,13 @@ public class Projectile : MonoBehaviour {
     }
 
     void Explode() {
-        // Play VFX
         // Play SFX
+	GameObject vfx = Instantiate(
+            destroyVFX,
+            transform.position,
+            Quaternion.identity
+        );
+	Destroy(vfx, 1);
         Destroy(gameObject);
     }
 
