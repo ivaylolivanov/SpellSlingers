@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 227a9571240335844a9a76eab0990cce, type: 3}
+  m_Name: EruptRock
+  m_EditorClassIdentifier: 
+  abilityName: Erupt rock
+  range: 2
+  force: 3
+  cooldown: 10
+  effect: {fileID: 0}
+  duration: 5
+  spawnObject: {fileID: 2755439555408585334, guid: 7d3e1819e313c6f8db68bcb83e392627,
+    type: 3}
