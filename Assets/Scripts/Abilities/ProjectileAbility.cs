@@ -17,7 +17,7 @@ public class ProjectileAbility : Ability {
         GameObject abilityProjectile = Instantiate(
             projectile,
             location.position,
-            Quaternion.identity
+            location.rotation
         );
         Rigidbody2D projectileRb
             = abilityProjectile.GetComponent<Rigidbody2D>();
