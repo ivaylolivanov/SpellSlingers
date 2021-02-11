@@ -30,11 +30,7 @@ public class Player : MonoBehaviour {
 
         movementInput.x = Input.GetAxis("Horizontal");
         movementInput.y = Input.GetAxis("Vertical");
-	if(movementInput != Vector2.zero) {
-	    animator.SetFloat("horizontal", movementInput.x);
-	    animator.SetFloat("vertical", movementInput.y);
-	}
-	animator.SetFloat("speed", movementInput.sqrMagnitude);
+	Animate();
 
         for (int i = 0; i < abilityHotkeys.Count; ++i) {
             if (Input.GetKeyDown(abilityHotkeys[i])) {
@@ -62,5 +58,13 @@ public class Player : MonoBehaviour {
         float lookDirDeg = lookAngleRads * Mathf.Rad2Deg;
         float lookDirDegPOV = lookDirDeg - 90f;
         combat.RotateAttackPoint(lookDirDegPOV);
+    }
+
+    private void Animate() {
+	if(movementInput != Vector2.zero) {
+	    animator.SetFloat("horizontal", movementInput.x);
+	    animator.SetFloat("vertical", movementInput.y);
+	}
+	animator.SetFloat("speed", movementInput.sqrMagnitude);
     }
 }
