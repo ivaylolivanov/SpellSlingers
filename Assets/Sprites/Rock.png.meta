@@ -246,7 +246,7 @@ TextureImporter:
       213: -2925945601069359806
     second: Rock_80
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -266,6 +266,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -274,9 +276,9 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
-    aniso: -1
-    mipBias: -100
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -297,10 +299,14 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -376,6 +382,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -903,6 +921,31 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Rock_3: 8234320154294349295
+      Rock_22: -7474100291440499343
+      Rock_13: -775158250124299069
+      Rock_21: 3960146190663221933
+      Rock_19: 3039383389240142966
+      Rock_15: 3569817822305002170
+      Rock_9: 6480276575616857751
+      Rock_17: 782178149287877576
+      Rock_18: 3825686064796405229
+      Rock_6: 5109119590321443857
+      Rock_2: 1013366739975189944
+      Rock_5: 2895386745164588504
+      Rock_20: -1907231346209955107
+      Rock_23: 2614034167984939514
+      Rock_12: -6748713386205411444
+      Rock_4: -8452671437627377638
+      Rock_11: 5182453174623977630
+      Rock_7: -377488008739171435
+      Rock_0: 3452003437791708593
+      Rock_14: 7861018443950184049
+      Rock_8: 1749095188232361521
+      Rock_1: 709247535313551666
+      Rock_16: -6770223400588028623
+      Rock_10: -5599827508121062507
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
